@@ -11,6 +11,7 @@ app.use(cors());
 // Return all tasks
 app.get('/tasks', async (req, res) => {
   const tasks = await getTasks();
+  console.log('Fetched tasks:', tasks);
   res.status(200).json(tasks);
 });
 

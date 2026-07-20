@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Complete React Assignment",
+    "description": "Finish the task tracker application using React and Tailwind CSS.",
+    "status": "Pending"
+  },
+  {
+    "id": 2,
+    "title": "Review Pull Request",
+    "description": "Review the latest pull request and provide feedback.",
+    "status": "In Progress"
+  },
+  {
+    "id": 3,
+    "title": "Prepare Weekly Presentation",
+    "description": "Create slides for the team sync meeting.",
+    "status": "Completed"
+  },
+  {
+    "id": 4,
+    "title": "Fix Login Bug",
+    "description": "Resolve the authentication issue affecting some users.",
+    "status": "Pending"
+  },
+  {
+    "id": 5,
+    "title": "Write Unit Tests",
+    "description": "Add tests for the task creation and update APIs.",
+    "status": "In Progress"
+  }
+]
