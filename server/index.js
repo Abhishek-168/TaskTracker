@@ -75,6 +75,10 @@ app.get('tasks/query', async (req, res) => {
         filteredTasks = tasks.filter(task => task.completed);
     } else if (status === 'pending') {
         filteredTasks = tasks.filter(task => !task.completed);
+    } else if (status === 'in-progress') {
+        filteredTasks = tasks.filter(task => task.completed === false && task.description.length > 0);
+    } else {
+        return res.status(400).json({ message: 'Invalid status query parameter' });
     }
     res.status(200).json(filteredTasks);
 });

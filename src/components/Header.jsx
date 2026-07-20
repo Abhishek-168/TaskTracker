@@ -15,6 +15,7 @@ export default function Header() {
         />
         <Button>Completed</Button>
         <Button>Pending</Button>
+        <Button>In Progress</Button>
       </div>
     </>
   );

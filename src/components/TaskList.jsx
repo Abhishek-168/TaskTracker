@@ -16,17 +16,15 @@ export default function TaskList() {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col">
-        {tasks.map((task) => {
-          <TaskItem
-            key={task.id}
-            title={task.title}
-            description={task.description}
-            status={task.status}
-          />;
-        })}
-      </div>
-    </>
+    <div className="flex flex-col">
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          Title={task.title}
+          Description={task.description}
+          status={task.status}
+        />
+      ))}
+    </div>
   );
 }
