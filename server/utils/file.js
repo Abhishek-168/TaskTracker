@@ -1,6 +1,7 @@
+// this file conatins utility functions for reading and writing tasks to a JSON file
 
-const fs = require("fs/promises");
-const path = require("path");
+import fs from "fs/promises";
+import path from "path";
 
 const filePath = path.join(__dirname, "../data/tasks.json");
 
