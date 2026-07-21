@@ -1,20 +1,8 @@
-import { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
-import { getAllTasks } from "@/services/getAllTasks";
 
-export default function TaskList() {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    async function fetchTasks() {
-      const data = await getAllTasks();
-      console.log("tasks", data);
-      setTasks(data);
-    }
-
-    fetchTasks();
-  }, []);
-
+// Provides the list fo tasks
+export default function TaskList({tasks}) {
+ 
   return (
     <div className="flex flex-col">
       {tasks.map((task) => (

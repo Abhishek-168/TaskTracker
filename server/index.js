@@ -53,6 +53,19 @@ app.delete('/tasks/:id', async (req, res) => {
     res.status(200).json({ message: 'Task deleted successfully' });
 });
 
+//Searches the tasks
+app.get('/search', async (req, res) => {
+    const search = req.query.search;
+
+    const tasks = await getTasks();
+
+    const filteredTasks = tasks.filter(task => {
+        return task.title.toLowerCase().includes(search.toLowerCase()) || task.description.toLowerCase().includes(search.toLowerCase());
+    });
+    
+    res.status(200).json(filteredTasks);
+})
+
 // Toggles the completion status of a task
 app.patch('/tasks/:id/toggle', async (req, res) => {
     const { id } = req.params;
@@ -86,5 +99,5 @@ app.get('tasks/query', async (req, res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
