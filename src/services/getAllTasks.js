@@ -14,6 +14,7 @@ export async function getAllTasks() {
   }
     catch (error) {
     console.error('There has been a problem while fetching tasks:', error);
+    return [];
     }
 }
 

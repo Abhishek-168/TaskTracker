@@ -1,10 +1,25 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getAllTasks } from "@/services/getAllTasks";
 import useDebounce from "@/utils/useDebounce";
 import { useEffect, useState } from "react";
+import { Plus } from 'lucide-react';
+import useSearchStore from "@/store/searchStore";
+import useTaskStore from "@/store/taskStore";
+import useAddTaskModalStore from "@/store/addTaskModalStore";
 
-export default function Header({ search, setSearch, setTasks }) {
+export default function Header() {
+  const search = useSearchStore((state) => state.search);
+  const setSearch = useSearchStore((state) => state.setSearch);
+  const setTasks = useTaskStore((state) => state.setTasks);
+  const setAddTaskModal = useAddTaskModalStore((state) => state.setAddTaskModal);
+
   const debouncedSearch = useDebounce(search, 500);
+  const statusStyles = {
+    Pending: "bg-yellow-500 text-white",
+    "In-progress": "bg-blue-500 text-white",
+    Completed: "bg-green-500 text-white",
+  };
 
   useEffect(() => {
     async function handleSearch() {
@@ -21,11 +36,29 @@ export default function Header({ search, setSearch, setTasks }) {
     }
 
     handleSearch();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, setTasks]);
+
+  const handleFilter = async (value) => {
+    const tasks = await getAllTasks();
+    const filteredTasks = (tasks ?? []).filter((task) => {
+      const taskStatus = String(task.status ?? "Pending").toLowerCase();
+      if (value === "completed") return taskStatus === "completed";
+      if (value === "pending") return taskStatus === "pending";
+      if (value === "in-progress") return taskStatus === "in-progress";
+      return true;
+    });
+
+    setTasks(filteredTasks);
+  };
 
   return (
     <>
-      <div className="flex gap-6 relative">
+      <div className="flex gap-3 relative">
+        <Button className="rounded-[50%] pl-3 pr-3"
+                onClick={() => setAddTaskModal(true)}      
+          >
+          <Plus />
+        </Button>
         <Input
           placeholder="Search your tasks"
           value={search}
@@ -37,9 +70,19 @@ export default function Header({ search, setSearch, setTasks }) {
           }}
           className="max-w-[30vw] p-5 bg-gray-500 text-white border-none placeholder:text-gray-300"
         />
-        <Button>Completed</Button>
-        <Button>Pending</Button>
-        <Button>In Progress</Button>
+       
+        <Button onClick={() => handleFilter("")} className="cursor-pointer"> 
+          All
+        </Button>
+        <Button onClick={() => handleFilter("completed") } className={`hover:${statusStyles.Completed} ${statusStyles.Completed} cursor-pointer`}>
+          Completed
+        </Button>
+        <Button onClick={() => handleFilter("pending") } className={`hover:${statusStyles.Pending} ${statusStyles.Pending} cursor-pointer`}>
+          Pending
+        </Button>
+        <Button onClick={() => handleFilter("in-progress") } className={`hover:${statusStyles["In-progress"]} ${statusStyles["In-progress"]} cursor-pointer`}>
+          In Progress
+        </Button>
       </div>
     </>
   );

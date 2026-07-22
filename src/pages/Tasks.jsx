@@ -3,11 +3,14 @@ import TaskList from "@/components/TaskList";
 import { Card } from "@/components/ui/card";
 import { getAllTasks } from "@/services/getAllTasks";
 import useDebounce from "@/utils/useDebounce";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import  useTaskStore from "@/store/taskStore";
+import useSearchStore from "@/store/searchStore";
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState([]);
-  const [search, setSearch] = useState("");
+  const setTasks = useTaskStore((state) => state.setTasks);
+  const search = useSearchStore((state) => state.search);
+
   const debouncedSearch = useDebounce(search, 500);
 
   useEffect(() => {
@@ -27,13 +30,13 @@ export default function Tasks() {
     }
 
     fetchTasks();
-  }, [debouncedSearch]);
+  }, [debouncedSearch, setTasks]);
 
   return (
     <div className="flex justify-center">
       <Card className="p-4 mt-10 h-[80vh] w-[70vw] bg-red-300 overflow-y-scroll scrollbar-thin">
-        <Header search={search} setSearch={setSearch} />
-        <TaskList tasks={tasks} />
+        <Header />
+        <TaskList/>
       </Card>
     </div>
   );

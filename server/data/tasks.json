@@ -1,38 +1,23 @@
 [
   {
-    "id": 1,
-    "title": "Complete React Assignmenklklklklklklklklklkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkt",
-    "description": "Finish the task tracker application using React and Tailwind CSSooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo.",
-    "status": "Pending"
+    "id": "1784704482511",
+    "title": "Go to the gym",
+    "description": "",
+    "status": "Pending",
+    "completed": false
   },
   {
-    "id": 2,
-    "title": "Review Pull Request",
-    "description": "Review the latest pull request and provide feedback.",
-    "status": "In Progress"
+    "id": "1784704530078",
+    "title": "Complete the Penthara Assignment",
+    "description": "The given Penthara Assignment needs to be completed before 24th of July.",
+    "status": "Completed",
+    "completed": true
   },
   {
-    "id": 3,
-    "title": "Prepare Weekly Presentation",
-    "description": "Create slides for the team sync meeting.",
-    "status": "Completed"
-  },
-  {
-    "id": 4,
-    "title": "Fix Login Bug",
-    "description": "Resolve the authentication issue affecting some users.",
-    "status": "Pending"
-  },
-  {
-    "id": 5,
-    "title": "Write Unit Tests",
-    "description": "Add tests for the task creation and update APIs.",
-    "status": "In Progress"
-  },
-  {
-    "id": 6,
-    "title": "Write Unit Tests",
-    "description": "Add tests for the task creation and update APIs.",
-    "status": "In Progress"
+    "id": "1784705837709",
+    "title": "gy",
+    "description": "",
+    "status": "Completed",
+    "completed": true
   }
 ]
