@@ -1,23 +1,15 @@
 [
   {
-    "id": "1784704482511",
-    "title": "Go to the gym",
-    "description": "",
-    "status": "Pending",
-    "completed": false
-  },
-  {
     "id": "1784704530078",
     "title": "Complete the Penthara Assignment",
-    "description": "The given Penthara Assignment needs to be completed before 24th of July.",
-    "status": "Completed",
-    "completed": true
+    "description": "The given Penthara assignment needs to be completed before 24th of July.",
+    "status": "In-progress"
   },
   {
-    "id": "1784705837709",
-    "title": "gy",
-    "description": "",
-    "status": "Completed",
-    "completed": true
+    "id": "1784715553387",
+    "title": "Prepare for the DSA round",
+    "description": "Need to revise DSA concepts and some useful algorithm for the interview",
+    "status": "Pending",
+    "completed": false
   }
 ]

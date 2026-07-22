@@ -10,7 +10,7 @@ export default function TaskList() {
   const safeTasks = Array.isArray(tasks) ? tasks : [];
  
   return (
-    <div className="flex flex-col">
+    <div className="flex gap-4 flex-wrap">
       {safeTasks.map((task) => (
         <TaskItem
           key={task.id}

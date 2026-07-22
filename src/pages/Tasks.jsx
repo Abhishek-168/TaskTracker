@@ -34,7 +34,7 @@ export default function Tasks() {
 
   return (
     <div className="flex justify-center">
-      <Card className="p-4 mt-10 h-[80vh] w-[70vw] bg-red-300 overflow-y-scroll scrollbar-thin">
+      <Card className="p-4 mt-10 h-[85vh] w-[70vw] bg-red-300 overflow-y-scroll scrollbar-thin">
         <Header />
         <TaskList/>
       </Card>

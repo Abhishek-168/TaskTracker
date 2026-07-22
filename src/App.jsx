@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Tasks from './pages/Tasks'
 import './App.css'
 

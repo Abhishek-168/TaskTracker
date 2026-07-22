@@ -68,7 +68,7 @@ export default function Header() {
               setSearch(e.target.value);
             }
           }}
-          className="max-w-[30vw] p-5 bg-gray-500 text-white border-none placeholder:text-gray-300"
+          className="max-w-[30vw] p-5 bg-pink-500 text-white border-none placeholder:text-gray-300"
         />
        
         <Button onClick={() => handleFilter("")} className="cursor-pointer"> 
