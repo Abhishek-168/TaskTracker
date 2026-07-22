@@ -3,10 +3,11 @@ import TaskItem from "./TaskItem";
 import useTaskStore from "@/store/taskStore";
 import useAddTaskModalStore from "@/store/addTaskModalStore";
 
-// Provides the list fo tasks
+// Renders the list of tasks and also shows the add task modal when its open
 export default function TaskList() {
   const tasks = useTaskStore((state) => state.tasks);
   const addTaskModal = useAddTaskModalStore((state) => state.addTaskModal);
+  // just in case tasks is not an array for some reason
   const safeTasks = Array.isArray(tasks) ? tasks : [];
  
   return (

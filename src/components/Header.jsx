@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAllTasks } from "@/services/getAllTasks";
+import { searchTasks } from "@/services/searchTasks";
 import useDebounce from "@/utils/useDebounce";
 import { useEffect, useState } from "react";
 import { Plus } from 'lucide-react';
@@ -8,6 +9,9 @@ import useSearchStore from "@/store/searchStore";
 import useTaskStore from "@/store/taskStore";
 import useAddTaskModalStore from "@/store/addTaskModalStore";
 
+/**
+ * Header component with search bar, filter buttons and add task button
+ */
 export default function Header() {
   const search = useSearchStore((state) => state.search);
   const setSearch = useSearchStore((state) => state.setSearch);
@@ -21,23 +25,22 @@ export default function Header() {
     Completed: "bg-green-500 text-white",
   };
 
+  // fires when debounced search value changes, calls the search api
   useEffect(() => {
     async function handleSearch() {
       if (!debouncedSearch.trim()) return;
 
-      const res = await fetch(
-        `http://localhost:3000/search?search=${encodeURIComponent(
-          debouncedSearch,
-        )}`,
-      );
-
-      const data = await res.json();
+      const data = await searchTasks(debouncedSearch);
       setTasks(data);
     }
 
     handleSearch();
   }, [debouncedSearch, setTasks]);
 
+  /**
+   * Filters tasks by there status value
+   * @param {string} value - the status to filter by (eg "completed", "pending")
+   */
   const handleFilter = async (value) => {
     const tasks = await getAllTasks();
     const filteredTasks = (tasks ?? []).filter((task) => {
@@ -45,7 +48,7 @@ export default function Header() {
       if (value === "completed") return taskStatus === "completed";
       if (value === "pending") return taskStatus === "pending";
       if (value === "in-progress") return taskStatus === "in-progress";
-      return true;
+      return true; // no filter, show all
     });
 
     setTasks(filteredTasks);

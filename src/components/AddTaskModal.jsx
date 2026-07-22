@@ -3,7 +3,16 @@ import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import useTaskStore from "@/store/taskStore";
 import useAddTaskModalStore from "@/store/addTaskModalStore";
+import { createTask } from "@/services/createTask";
+import { updateTask } from "@/services/updateTask";
 
+/**
+ * Modal component for adding a new task or editing an exisitng one
+ * @param {Object} props
+ * @param {boolean} props.isEditing - whether we are editing or creating
+ * @param {string|number|null} props.taskId - id of the task being edited
+ * @param {Function|null} props.setOpenEditModal - callback to close the edit modal
+ */
 export default function AddTaskModal({
   isEditing = false,
   taskId = null,
@@ -20,6 +29,7 @@ export default function AddTaskModal({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  // prefill the form fields when editing a task
   useEffect(() => {
     if (isEditing && task) {
       setTitle(task.title);
@@ -29,59 +39,30 @@ export default function AddTaskModal({
     }
   }, [isEditing, task]);
 
+  /**
+   * Handles form submission for both creating and updating tasks
+   * @param {Event} event - the form submit event
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!title.trim()) {
       console.log("Title is required");
       return;
     }
-    // Editing existing task logic
+
     if (isEditing && taskId) {
-      try {
-        const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            description,
-          }),
-        });
-        if (!response.ok) {
-          console.log("Error updating task");
-          return;
-        }
-        const data = await response.json();
+      // editing a existing task
+      const data = await updateTask(taskId, title, description);
+      if (data) {
         setTasks(data);
         setAddTaskModal(false);
-      } catch (error) {
-        console.log("Error updating task api", error);
       }
     } else {
-      // New task creation logic
-      try {
-        const response = await fetch("http://localhost:3000/tasks", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title,
-            description,
-          }),
-        });
-
-        if (!response.ok) {
-          console.log("Error at adding tasks");
-          return;
-        }
-
-        const data = await response.json();
+      // creating a new task
+      const data = await createTask(title, description);
+      if (data) {
         setTasks(data);
         setAddTaskModal(false);
-      } catch (error) {
-        console.log("Error at adding tasks api", error);
       }
     }
   };

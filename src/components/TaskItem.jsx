@@ -4,16 +4,28 @@ import { Card } from "./ui/card";
 import useTaskStore from "@/store/taskStore";
 import AddTaskModal from "./AddTaskModal";
 import useAddTaskModalStore from "@/store/addTaskModalStore";
+import { deleteTask } from "@/services/deleteTask";
+import { toggleTaskStatus } from "@/services/toggleTaskStatus";
 import { Pencil, Trash2 } from "lucide-react";
 import { memo } from "react";
 import { useState } from "react";
 
+/**
+ * Renders a single task card with title, description and action buttons
+ * @param {Object} props
+ * @param {string|number} props.id - task id
+ * @param {string} props.Title - task title
+ * @param {string} props.Description - task description
+ * @param {string} props.status - current status of the task
+ */
 function TaskItem({ id, Title, Description, status }) {
   const title = truncate(Title, 90);
   const description = truncate(Description, 200);
   const updateTask = useTaskStore((state) => state.updateTask);
   const [openEditModal, setOpenEditModal] = useState(false);
   const setAddTaskModal = useAddTaskModalStore((state) => state.setAddTaskModal);
+
+  // normalize status so we can handle inconsistent casing from the backend
   const normalizedStatus =
     status === "Completed" || status === "completed"
       ? "Completed"
@@ -29,52 +41,38 @@ function TaskItem({ id, Title, Description, status }) {
     Completed: "bg-green-500 text-white",
   };
 
+  /**
+   * Deletes a task and removes it from the store
+   * @param {string|number} id - the task id to delete
+   */
   const handleDelete = async (id) => {
     if (!id) {
       console.log("Task id is missing");
       return;
     }
 
-    try {
-      const response = await fetch(`http://localhost:3000/tasks/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) {
-        console.log("Error deleting task");
-        return;
-      }
-      
-      const data = await response.json();
+    const data = await deleteTask(id);
+    if (data) {
       console.log(data.message);
-      // Remove the task from the store
+      // remove from store after successfull delete
       useTaskStore.getState().removeTask(id);
-    } catch (error) {
-      console.log("Error deleting task:", error);
     }
   };
 
+  /**
+   * Toggles the task status and updates the store
+   * @param {string|number} id
+   */
   const handleStatusChange = async (id) => {
     if (!id) {
       console.log("Task id is missing");
       return;
     }
 
-    try {
-      const response = await fetch(`http://localhost:3000/tasks/${id}/toggle`, {
-        method: "PATCH",
-      });
-
-      if (!response.ok) {
-        console.log("Error updating task status");
-        return;
-      }
-
-      const updatedTask = await response.json();
+    const updatedTask = await toggleTaskStatus(id);
+    if (updatedTask) {
       updateTask(updatedTask);
       console.log("Task status updated:", updatedTask);
-    } catch (error) {
-      console.log("Error updating task status:", error);
     }
   };
 

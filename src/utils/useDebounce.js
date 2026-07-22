@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 
-// Debounce hook to delay the execution of a function until after a specified delay has passed since the last time it was invoked.
+/**
+ * Custom hook that debounces a value. Basicaly it waits for the user to stop
+ * typing before actually updating the value
+ * @param {any} value - the value to debounce
+ * @param {number} delay - delay in miliseconds
+ * @returns {any} the debounced value
+ */
 export default function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
+    // set a timer to update the value after delay
     const timer = setTimeout(() => {
       setDebouncedValue(value);
     }, delay);
 
+    // cleanup the timer if value changes before delay is over
     return () => clearTimeout(timer);
   }, [value, delay]);
 

@@ -2,11 +2,16 @@ import Header from "@/components/Header";
 import TaskList from "@/components/TaskList";
 import { Card } from "@/components/ui/card";
 import { getAllTasks } from "@/services/getAllTasks";
+import { searchTasks } from "@/services/searchTasks";
 import useDebounce from "@/utils/useDebounce";
 import { useEffect } from "react";
 import  useTaskStore from "@/store/taskStore";
 import useSearchStore from "@/store/searchStore";
 
+/**
+ * Main tasks page, fetches and displays all tasks
+ * Also handles search - if theres a search query it hits the search api instead
+ */
 export default function Tasks() {
   const setTasks = useTaskStore((state) => state.setTasks);
   const search = useSearchStore((state) => state.search);
@@ -18,11 +23,10 @@ export default function Tasks() {
       let data;
 
       if (debouncedSearch.trim()) {
-        const res = await fetch(
-          `http://localhost:3000/search?search=${encodeURIComponent(debouncedSearch)}`,
-        );
-        data = await res.json();
+        // user is searching, use the search service
+        data = await searchTasks(debouncedSearch);
       } else {
+        // no search query, just get all tasks
         data = await getAllTasks();
       }
 
