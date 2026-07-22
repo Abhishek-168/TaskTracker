@@ -9,14 +9,7 @@
   {
     "id": "1784715553387",
     "title": "Prepare for the DSA round",
-    "description": "Need to revise DSA concepts and some useful algorithm for the interview.",
+    "description": "Need to revise DSA concepts and some useful algorithm for the interview",
     "status": "In-progress"
-  },
-  {
-    "id": "1784716253913",
-    "title": "RGPV Exam preperation",
-    "description": "Prepare for semester exams",
-    "status": "Pending",
-    "completed": false
   }
 ]
