@@ -78,7 +78,7 @@ function TaskItem({ id, Title, Description, status }) {
 
   return (
     <>
-      <Card className="aspect-square max-w-[16vw] min-w-[16vw] flex flex-col p-4 gap-3 border border-transparent hover:border-red-500 transition-all duration-300">
+      <Card className="flex flex-col p-4 gap-3 border border-transparent hover:border-red-500 transition-all duration-300">
         <div className="flex items-start justify-between gap-2">
           <span className="font-semibold text-base wrap-break-word line-clamp-2">
             {title}

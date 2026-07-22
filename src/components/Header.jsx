@@ -56,36 +56,40 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex gap-3 relative">
-        <Button className="rounded-[50%] pl-3 pr-3"
-                onClick={() => setAddTaskModal(true)}      
-          >
-          <Plus />
-        </Button>
-        <Input
-          placeholder="Search your tasks"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setSearch(e.target.value);
-            }
-          }}
-          className="max-w-[30vw] p-5 bg-pink-500 text-white border-none placeholder:text-gray-300"
-        />
-       
-        <Button onClick={() => handleFilter("")} className="cursor-pointer"> 
-          All
-        </Button>
-        <Button onClick={() => handleFilter("completed") } className={`hover:${statusStyles.Completed} ${statusStyles.Completed} cursor-pointer`}>
-          Completed
-        </Button>
-        <Button onClick={() => handleFilter("pending") } className={`hover:${statusStyles.Pending} ${statusStyles.Pending} cursor-pointer`}>
-          Pending
-        </Button>
-        <Button onClick={() => handleFilter("in-progress") } className={`hover:${statusStyles["In-progress"]} ${statusStyles["In-progress"]} cursor-pointer`}>
-          In Progress
-        </Button>
+      <div className="flex flex-col sm:flex-row gap-3 mb-4">
+        <div className="flex gap-3 items-center">
+          <Button className="rounded-[50%] pl-3 pr-3 shrink-0"
+                  onClick={() => setAddTaskModal(true)}      
+            >
+            <Plus />
+          </Button>
+          <Input
+            placeholder="Search your tasks"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setSearch(e.target.value);
+              }
+            }}
+            className="w-full sm:w-auto sm:max-w-[30vw] p-5 bg-pink-500 text-white border-none placeholder:text-gray-300"
+          />
+        </div>
+
+        <div className="flex gap-2 flex-wrap">
+          <Button onClick={() => handleFilter("")} className="cursor-pointer text-sm"> 
+            All
+          </Button>
+          <Button onClick={() => handleFilter("completed") } className={`hover:${statusStyles.Completed} ${statusStyles.Completed} cursor-pointer text-sm`}>
+            Completed
+          </Button>
+          <Button onClick={() => handleFilter("pending") } className={`hover:${statusStyles.Pending} ${statusStyles.Pending} cursor-pointer text-sm`}>
+            Pending
+          </Button>
+          <Button onClick={() => handleFilter("in-progress") } className={`hover:${statusStyles["In-progress"]} ${statusStyles["In-progress"]} cursor-pointer text-sm`}>
+            In Progress
+          </Button>
+        </div>
       </div>
     </>
   );
